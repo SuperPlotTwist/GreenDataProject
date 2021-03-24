@@ -1,0 +1,32 @@
+{
+	"barcode":"123456",
+	"name":"str",
+	"brand":"brand",
+	"picture_url":"https://greendata.org/pictures/123456",
+	"origin":
+	[
+		"france",
+		"spain"
+	],
+	"ekoscore":35,
+	"product_quantity":
+	{
+		"value":30,
+		"uom":"L"
+	},
+	"packaging":
+	[
+		{
+			"material":"plastic",
+			"material_eu_id":null,
+			"is_recycled":false,
+			"is_recyclable":true,
+			"mass_grams":155
+		}
+	],
+	"adding_date":"2021-09-06",
+	"contributors":
+	[
+		"michel123"
+	]
+}

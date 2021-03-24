@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Product</h1>
+
+<ul>
+{% for product in object_list %}
+	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <br/>
+	{{ product.packaging }} <br/>
+	{{ product.packaging_mass }} </li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}
