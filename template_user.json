@@ -1,0 +1,18 @@
+{
+	"UID":"str",
+	"nickname":"Renji",
+	"lastname":null,
+	"surname":null,
+	"email":null,
+	"phone":
+	{
+		"country_code":"+xx",
+		"number":"xxxxxxx"
+	},
+	"country":"france",
+	"reg_date":"20xx-xx-xx",
+	"pwd_hash":"ere1z65azeze545z6ee1za89e5c12cnhk5jkg5f4g4g",
+	"pwd_salt":"md*aze+!:",
+	"product_contribs":
+	[]
+}
