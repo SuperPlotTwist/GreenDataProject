@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Product
+from .forms import AddForm
 
 # Create your views here.
 """def home(request):
@@ -16,5 +17,11 @@ class ProductDetailView(DetailView):
 
 class AddProductView(CreateView):
 	model = Product
+	form_class = AddForm
 	template_name = 'add_product.html'
-	fields = '__all__'
+	#fields = '__all__'
+
+class UpdateProductView(UpdateView):
+	model = Product
+	template_name = 'update_product.html'
+	fields = ['product_name', 'packaging', 'packaging_mass', 'author']
