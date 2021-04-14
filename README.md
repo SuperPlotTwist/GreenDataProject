@@ -11,7 +11,13 @@ or
 `./venvname/Scripts/activate`
 
 3. Install needed python modules:
-`pip install django, dnspython, pymongo`
+`pip install django, dnspython, djongo`
+
+4. Make migrations:
+```
+	python GreenData/manage.py makemigrations
+	python GreenData/manage.py migrate
+```
 
 4. Run the server:
 `python manage.py runserver`
