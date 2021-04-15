@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Delete product
+{% endblock %}
+
+{% block content %}
+
+<h1>Deleting a product in the database</h1>
+</br>
+<hr>
+</br>
+
+<h3>Delete: {{ product.product_name }} </h3>
+</br>
+<div class="form-group">
+	<form method="POST">
+		{% csrf_token %}
+        <strong>Once a product is deleted, it cannot be restaured. Are you sure you want to delete this product?</strong>
+		<br/><br/>
+		<button type='submit' class="btn btn-secondary">Delete product</button>
+</div>
+
+{% endblock %}

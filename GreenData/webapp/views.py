@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
 from .forms import AddForm
+from django.urls import reverse_lazy
 
 # Create your views here.
 """def home(request):
@@ -10,6 +11,7 @@ from .forms import AddForm
 class HomeView(ListView):
 	model = Product
 	template_name = 'home.html'
+	ordering = ['-id']
 
 class ProductDetailView(DetailView):
 	model = Product
@@ -27,4 +29,7 @@ class UpdateProductView(UpdateView):
 	template_name = 'update_product.html'
 	#fields = ['product_name', 'packaging', 'packaging_mass', 'author']
 
-	
+class DeleteProductView(DeleteView):
+	model = Product
+	template_name = 'delete_product.html'
+	success_url = reverse_lazy('home')
