@@ -6,6 +6,7 @@ Edit product
 
 {% block content %}
 
+{% if user.is_authenticated %}
 <h1>Edit product in the database</h1>
 </br></br>
 <div class="form-group">
@@ -15,5 +16,10 @@ Edit product
 		<br/><br/>
 		<button type='submit' class="btn btn-secondary">Update</button>
 </div>
+{% else %}
+
+<h3>You are not allowed to access this page!</h3>
+
+{% endif %}
 
 {% endblock %}

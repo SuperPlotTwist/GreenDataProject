@@ -6,6 +6,7 @@ Delete product
 
 {% block content %}
 
+{% if user.is_authenticated %}
 <h1>Deleting a product in the database</h1>
 </br>
 <hr>
@@ -20,5 +21,10 @@ Delete product
 		<br/><br/>
 		<button type='submit' class="btn btn-secondary">Delete product</button>
 </div>
+{% else %}
+
+<h3>You are not allowed to access this page!</h3>
+
+{% endif %}
 
 {% endblock %}

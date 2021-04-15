@@ -6,7 +6,12 @@
 
 <ul>
 {% for product in object_list %}
-	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> - <small><a href="{% url 'updateProduct' product.pk %}">Edit Product</a> </small> - <small><a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> </small><br/>
+	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <small>
+		{% if user.is_authenticated %}
+		- <a href="{% url 'updateProduct' product.pk %}">Edit Product</a> - 
+		<a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> 
+		{% endif %}
+	</small><br/>
 	{{ product.packaging }} <br/>
 	{{ product.packaging_mass }} </li>
 

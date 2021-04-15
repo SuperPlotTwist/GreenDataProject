@@ -14,8 +14,10 @@
 
 <br/>
 <hr>
+{% if user.is_authenticated %}
 <small><a href="{% url 'updateProduct' product.pk %}">Edit Product</a> </small> <br/>
 <small><a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> </small><br/>
+{% endif %}
 
 <small>Last author: {{product.author}} </small><br/>
 
