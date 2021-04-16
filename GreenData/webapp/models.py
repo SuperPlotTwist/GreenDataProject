@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django_countries.fields import CountryField
 
 # Create your models here.
 
@@ -36,10 +37,12 @@ class Product(models.Model):
 	packaging_mass = models.IntegerField()
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	category = models.CharField(max_length=255, default='Others')
+	country = CountryField()
 
 	def __str__(self):
 		return self.product_name
 
 	def get_absolute_url(self):
-		return reverse('productDetail', args=(str(self.id)) )
+		#return reverse('productDetail', args=(str(self.id)) )
+		return reverse('home')
 

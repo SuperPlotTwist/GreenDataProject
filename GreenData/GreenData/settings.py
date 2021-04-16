@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'members',
+    'django_countries'
 ]
 
 MIDDLEWARE = [
@@ -74,15 +75,8 @@ WSGI_APPLICATION = 'GreenData.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        #'NAME': 'your-db-name',
-        'CLIENT': {
-			'name': 'AtlasDB',
-            'host': 'mongodb+srv://greenData_system:green4all@cluster0.3xooo.mongodb.net/green-data?retryWrites=true&w=majority',
-			'username': 'greenData_system',
-			'password': 'green4all',
-			'authMechanism': 'SCRAM-SHA-1'
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
