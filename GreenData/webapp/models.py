@@ -38,7 +38,7 @@ class Product(models.Model):
 	#packaging = models.ArrayField(model_container=PackagingInfo)
 	packaging_mass = models.IntegerField()
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	category = models.CharField(max_length=255, default='Others')
+	category = models.CharField(max_length=255, default='others')
 	country = CountryField()
 
 	def __str__(self):

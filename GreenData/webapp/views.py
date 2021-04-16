@@ -38,3 +38,7 @@ class AddCategoryView(CreateView):
 	model = Category
 	template_name = 'add_category.html'
 	fields = '__all__'
+
+def CategoryView(request, cats):
+	cat_products = Product.objects.filter(category=cats.replace('-', ' '))
+	return render(request, 'categories.html', {'cats':cats.title().replace('-', ' '), 'cat_products':cat_products})
