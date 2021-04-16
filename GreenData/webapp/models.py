@@ -21,7 +21,7 @@ class PackagingInfo(models.Model):
 		# I think this makes the object to not be registerable alone in the database
 		#abstract = True
 
-choices = [('Others', 'Others'), ('Household products', 'Household products'), ('Food products', 'Food products')]
+choices = [('food products', 'food products'), ('household products', 'Household products'), ('others', 'others'),]
 
 class Category(models.Model):
 	name = models.CharField(max_length=255)
