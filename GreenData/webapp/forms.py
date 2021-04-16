@@ -1,5 +1,7 @@
 from django import forms
-#from django.forms import ModelForm
+
+from django.forms import ModelForm
+
 from .models import Product, Category
 
 #choices = [('Others', 'Others'), ('Household products', 'Household products'), ('Food products', 'Food products')]
@@ -15,15 +17,22 @@ for item in choi:
 		fields = ["product_name", "category", "packaging", "packaging_mass", "author"]
 '''
 
-class AddForm(forms.ModelForm):
+class AddForm(ModelForm):
+	category = forms.ChoiceField(choices=choice_list, widget=forms.Select())
+	class Meta:
+		model = Product
+		fields = ["product_name", "category", "packaging", "packaging_mass", "author"]
+
+
+'''class AddForm(forms.ModelForm):
 	class Meta:
 		model = Product
 		fields = ("product_name", "category", "packaging", "packaging_mass", "author", "country")
 
 		widget = {
 			'product_name' : forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Insert Product\'s name'}),
-			'category' : forms.Select(choices=choice_list, attrs={'class':'form-control'}),
+			'category' : forms.ChoiceField(choices=choice_list, widget=forms.Select()),
 			'packaging' : forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Insert Packaging'}),
 			'packaging_mass' : forms.NumberInput(attrs={'class':'form-control', 'placeholder': 'Insert Packaging\'s mass'}),
 			'author' : forms.Select(attrs={'class':'form-control', 'placeholder': 'Choose Author'}),
-		}
+		}'''
