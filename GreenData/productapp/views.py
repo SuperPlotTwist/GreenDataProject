@@ -29,7 +29,7 @@ def create_product_view(request, *args, **kwargs):
 				with transaction.atomic():
 					product = product_form.save(commit=False)
 					product.last_modified = datetime.today()
-					product.author = request.user.name
+					#product.author = request.user.name
 					product.save()
 					for pkg in packaging_formset:
 						packaging = pkg.save(commit=False)
