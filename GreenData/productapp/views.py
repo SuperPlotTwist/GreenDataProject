@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db import transaction, IntegrityError
 from django.forms import modelformset_factory
 
+from datetime import datetime
+
 from .models import Product, PackagingInfo
 from .forms import ProductForm, PackagingInfoForm
 
@@ -26,12 +28,14 @@ def create_product_view(request, *args, **kwargs):
 			try:
 				with transaction.atomic():
 					product = product_form.save(commit=False)
-					product.save
+					product.last_modified = datetime.today()
+					product.author = request.user.name
+					product.save()
 					for pkg in packaging_formset:
 						packaging = pkg.save(commit=False)
 						packaging.product = product
 						packaging.save()
-			except IntegrityError:
+			except:
 				raise "Form ERROR"
 			product_form = ProductForm()
 			packaging_formset = PackagingFormSet(queryset=PackagingInfo.objects.none(), prefix='packaging_info')
