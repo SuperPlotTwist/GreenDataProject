@@ -1,0 +1,91 @@
+<!--{ % extends 'base.html' % }-->
+
+{% load static %} <!--Load jQuery and js source-->
+
+{% block content %}
+
+<head>
+<!--Import jQuery-->
+<script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js'%}"></script>
+
+</head>
+<body>
+<form method='POST'>
+
+{% csrf_token %}
+
+{{ product_form.as_p }}
+
+<table class="table form-table table-bordered table-sm">
+                            <thead class="text-center">
+                            <tr>
+                                <th>Element</th>
+                                <th>Material</th>
+                                <th>Mass</th>
+                                <th>Recyclable ?</th>
+                                <th>Recycled ?</th>
+								
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for pkg in packaging_formset %}
+                                <tr class="item">
+                                    <td>
+                                        {{ pkg.element }}
+                                    </td>
+                                    <td>
+                                        {{ pkg.material }}
+                                    </td>
+                                    <td>
+                                        {{ pkg.mass }}
+                                    </td>
+                                    <td>
+                                        {{ pkg.is_recyclable }}
+                                    </td>
+                                    <td>
+                                        {{ pkg.is_recycled }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm remove-form-row"
+                                                id="{{ packaging_formset.prefix }}">
+                                          
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="9"
+                                    style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
+                                    <button type="button" class="btn btn-sm btn-success add-form-row"
+                                            id="{{ packaging_formset.prefix }}">
+                                       Add
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+	
+	{{ packaging_formset.management_form }}
+
+
+	<button type="submit">Submit</button>
+
+</form>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+{% endblock content %}
+
+
+
+{% block extra_script %}
+	<script type="text/javascript" src="{% static 'js/formset.js' %}"></script>
+	<h1>script</h1>
+{% endblock%}
+
+
