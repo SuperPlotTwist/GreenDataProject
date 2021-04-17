@@ -29,8 +29,8 @@ def create_product_view(request, *args, **kwargs):
 					product.save
 					for pkg in packaging_formset:
 						packaging = pkg.save(commit=False)
-						c.product = product
-						c.save()
+						packaging.product = product
+						packaging.save()
 			except IntegrityError:
 				raise "Form ERROR"
 			product_form = ProductForm()
