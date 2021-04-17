@@ -73,6 +73,14 @@ class AddCategoryView(CreateView):
 		context["cat_menu"] = cat_menu
 		return context
 
-def CategoryView(request, cats):
+def CategoryView(request, cats, **kwargs):
+	ctxt = {}
+
+	cat_menu = Category.objects.all()
 	cat_products = Product.objects.filter(category=cats.replace('-', ' '))
-	return render(request, 'categories.html', {'cats':cats.title().replace('-', ' '), 'cat_products':cat_products})
+	
+	ctxt["cat_menu"] = cat_menu
+	ctxt["cat_products"] = cat_products
+	ctxt["cats"] = cats.title().replace('-', ' ')
+
+	return render(request, 'categories.html', ctxt)
