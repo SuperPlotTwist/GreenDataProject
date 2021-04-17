@@ -6,7 +6,7 @@ Delete product
 
 {% block content %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser%}
 <h1>Deleting a product in the database</h1>
 </br>
 <hr>

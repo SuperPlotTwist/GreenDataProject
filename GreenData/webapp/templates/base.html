@@ -49,14 +49,16 @@
       {% endif %}
 
       {% if user.is_authenticated %}
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'addProduct' %}">Add a product</a>
       </li>
+      {% if user.is_authenticated and user.is_superuser%}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'addCategory' %}">Add category</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
       </li>
       {% else %}
       <li class="nav-item">
