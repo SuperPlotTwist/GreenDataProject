@@ -56,7 +56,7 @@ ROOT_URLCONF = 'GreenData.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'global_templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
