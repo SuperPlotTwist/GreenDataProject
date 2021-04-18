@@ -29,7 +29,6 @@ urlpatterns = [
     path('addProduct/', AddProductView.as_view(), name="addProduct"),
     path('product/edit/<int:pk>', UpdateProductView.as_view(), name="updateProduct"),
     path('product/<int:pk>/delete', DeleteProductView.as_view(), name="deleteProduct"),
-    path('addCategory/', AddCategoryView.as_view(), name="addCategory"),
 	path('category/<str:cats>/', CategoryView, name='category'),
     path("favicon.ico", RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")))
 ]

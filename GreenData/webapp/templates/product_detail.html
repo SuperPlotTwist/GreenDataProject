@@ -7,12 +7,24 @@
 
 {% block content %}
 
-<h1> {{product.product_name}}</h1> 
+<h1> Marmelade<!--{{product.product_name}}--></h1>
+Brand Name
+<br/>
  {{ product.category }}
 <br/>
+EcoScore : xx
+<br/>
+<br/>
+Packaging Elements:
+<ul>
+<li>Lid - plastic - recyclable: No - recycled: Yes</li>
+<li>Jar - glass - recyclable: Yes - recycled: Yes</li>
+
+</ul>
+<!--
 <small>Packaging: {{product.packaging}} </small><br/>
 <small>Packaging mass: {{product.packaging_mass}} </small>
-
+-->
 <br/>
 <hr>
 {% if user.is_authenticated %}
