@@ -17,7 +17,7 @@ class Product(models.Model):
 	# Attributes
 	name = models.CharField(max_length=128)
 	brand = models.CharField(max_length=128)
-	category = models.CharField(max_length=16) #TODO: make it choice
+	category = models.CharField(max_length=16, blank=False, null=False) #TODO: make it choice
 	origin = CountryField()
 
 	# quantity can be registered as grams, liters... (internal calculus and approximation needed)
