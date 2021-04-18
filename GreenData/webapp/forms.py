@@ -21,3 +21,11 @@ class AddForm(ModelForm):
 	class Meta:
 		model = Product
 		fields = ["product_name", "category", "packaging", "packaging_mass", "author"]
+		
+	def __init__(self, *args, **kwargs):
+		super(AddForm, self).__init__(*args, **kwargs)
+		self.fields['product_name'].widget.attrs['class']='form-control'
+		self.fields['category'].widget.attrs['class']='form-control'
+		self.fields['packaging'].widget.attrs['class']='form-control'
+		self.fields['packaging_mass'].widget.attrs['class']='form-control'
+		self.fields['author'].widget.attrs['class']='form-control'
