@@ -4,6 +4,8 @@
 
 <h1>Lately added products</h1>
 
+<br></br>
+
 <ul>
 {% for product in object_list %}
 	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <small>
@@ -19,6 +21,12 @@
 	{{ product.packaging_mass }} </li>
 
 {% endfor %}
+	<li>
+		<a href="#">Product 1 name</a> - brand - category - EcoScore
+	</li>
+	<li>
+		<a href="#">Product 2 name</a> - brand - category - EcoScore
+	</li>
 </ul>
 
 {% endblock %}
