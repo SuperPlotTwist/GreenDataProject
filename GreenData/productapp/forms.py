@@ -23,7 +23,7 @@ class ProductForm(forms.ModelForm):
 
 class PackagingInfoForm(forms.ModelForm):
 	
-	element = forms.CharField(widget=forms.TextInput(attrs={'class':'formset-field'}))
+	element = forms.CharField(required=True, strip=True, widget=forms.TextInput(attrs={'class':'formset-field'}))
 	
 	material = forms.ChoiceField(choices=MATERIALS, widget=forms.Select(attrs={'class':'formset-field'}))
 	

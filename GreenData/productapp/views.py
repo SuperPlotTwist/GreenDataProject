@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.db import transaction, IntegrityError
 from django.forms import modelformset_factory
 
+from django.utils import timezone
 import pytz
 
 from .models import Product, PackagingInfo
@@ -13,7 +14,7 @@ from .forms import ProductForm, PackagingInfoForm
 def create_product_view(request, *args, **kwargs):
 	ctxt = {}
 
-	PackagingFormSet = modelformset_factory(model=PackagingInfo, form=PackagingInfoForm )
+	PackagingFormSet = modelformset_factory(model=PackagingInfo, form=PackagingInfoForm, max_num=10)
 
 	product_form = ProductForm(request.POST or None)
 
@@ -33,13 +34,15 @@ def create_product_view(request, *args, **kwargs):
 					product.save()
 					for pkg in packaging_formset:
 						packaging = pkg.save(commit=False)
-						packaging.product = product
-						packaging.save()
+						if packaging.element != '':
+							packaging.product = product
+							packaging.save()
+					
+					return redirect('product_detail', pk=product.pk)
 			except:
 				raise "Form ERROR"
 			product_form = ProductForm()
 			packaging_formset = PackagingFormSet(queryset=PackagingInfo.objects.none(), prefix='packaging_info')
-			return redirect('/')
 		else:
 			print(product_form.errors, packaging_formset.errors)
 	
@@ -59,13 +62,14 @@ def product_detail_view(request, pk='', **kwargs):
 
 	product = Product.objects.filter(pk=pk)
 
+	# if the barcode value doesn't find a match or if there are several matches
 	if len(product) != 1:
 		ctxt['good_pk'] = False
 		return render(request, 'product_detail2.html', ctxt)
 	
 	packagings = product[0].packaginginfo_set.all()
 
-	ctxt['product'] = product
+	ctxt['product'] = product[0]
 	ctxt['packaging'] = packagings
 	ctxt['user'] = request.user
 
