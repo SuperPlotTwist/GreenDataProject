@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %} 
+{% if good_pk %}
 {{product.name}}
+{% else %}
+Unknown product
+{% endif %}
 {% endblock %}
 
 
 {% block content %}
+
+{% if good_pk %}
 
 <h1> {{product.name }} </h1>
 <h2> {{ product.brand }} </h2>
@@ -41,4 +47,10 @@ Packaging Elements:
 <br/><br/>
 <a href="{% url 'home' %}" class="btn btn-secondary">Back<a/>
 -->
+
+{% else %}
+
+<h1> Sorry, the item with barcode '{{ pk }}' is not registered in our database </h1>
+
+{% endif %}
 {% endblock %}

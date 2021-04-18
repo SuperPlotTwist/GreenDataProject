@@ -45,20 +45,23 @@ def create_product_view(request, *args, **kwargs):
 	ctxt['packaging_formset'] = packaging_formset
 	return render(request, 'create_product.html', ctxt)
 
+
+
+
 def product_detail_view(request, pk='', **kwargs):
-	ctxt = {'good_pk': True}
+	ctxt = {'good_pk': True, 'pk': pk}
 
 	if pk == '': #Invalid pk
 		ctxt['good_pk'] = False
-		return render(request, 'product_detail.html', ctxt)
+		return render(request, 'product_detail2.html', ctxt)
 
-	try:
-		product = Product.objects.get(pk=pk)
-	except:
+	product = Product.objects.filter(pk=pk)
+
+	if len(product) != 1:
 		ctxt['good_pk'] = False
-		return render(request, 'product_detail.html', ctxt)
+		return render(request, 'product_detail2.html', ctxt)
 	
-	packagings = product.packaginginfo_set.all()
+	packagings = product[0].packaginginfo_set.all()
 
 	ctxt['product'] = product
 	ctxt['packaging'] = packagings
