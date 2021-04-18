@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if cat_products %}
+
+<h1> {{ cats }} category</h1>
+
+{% for product in cat_products %}
+<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> 
+    <small>
+    {% if user.is_authenticated and user.is_superuser%}
+    - <a href="{% url 'updateProduct' product.pk %}">Edit Product</a> - 
+    <a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> 
+    {% endif %}
+</small><br/>
+{{ product.packaging }} <br/>
+{{ product.packaging_mass }} </li>
+
+{% endfor %}
+
+{% else %}
+
+<h2>Sorry, this page does not exist...</h2>
+
+{% endif %}
+
+
+
+{% endblock %}

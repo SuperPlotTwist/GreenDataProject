@@ -2,15 +2,34 @@
 
 {% block content %}
 
-<h1>Product</h1>
+<!--<h1>Lately added products</h1>-->
+<h1>Food Products</h1>
+<br></br>
 
-<ul>
+<ul><!--
 {% for product in object_list %}
-	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <br/>
+	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <small>
+		- <a href="{% url 'category' product.category|slugify %}"> {{ product.category }} </a>
+		{% if user.is_authenticated %}
+		- <a href="{% url 'updateProduct' product.pk %}">Edit Product</a>
+		{% endif %}
+		{% if user.is_authenticated and user.is_superuser%}
+		- <a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> 
+		{% endif %}
+	</small><br/>
 	{{ product.packaging }} <br/>
 	{{ product.packaging_mass }} </li>
 
-{% endfor %}
+{% endfor %}-->
+	<li>
+		<a href="#">Product 1 name</a> - brand - Food - EcoScore
+	</li>
+	<li>
+		<a href="#">Product 2 name</a> - brand - Food - EcoScore
+	</li>
+	<li>
+		<a href="#">Product 3 name</a> - brand - Food - EcoScore
+	</li>
 </ul>
 
 {% endblock %}

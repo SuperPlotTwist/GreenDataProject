@@ -6,15 +6,22 @@ Add a product
 
 {% block content %}
 
+{% if user.is_authenticated %}
 <h1>Add product to database</h1>
 </br></br>
-<form method="POST">
-	{% csrf_token %}
-	{{ form.as_p }}
-</form>
 
-<br/><br/>
+<div class="form-group">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<br/><br/>
+		<button type='submit' class="btn btn-secondary">Add product</button>
+</div>
+{% else %}
 
-	<button type='submit'class="btn btn-secondary">Add product</button>
+<h3>You are not allowed to access this page!</h3>
+
+{% endif %}
+
 
 {% endblock %}

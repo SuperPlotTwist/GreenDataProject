@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+{% if good_pk %}
+{{product.name}}
+{% else %}
+Unknown product
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+{% if good_pk %}
+
+<h1> {{product.name }} </h1>
+<h2> {{ product.brand }} </h2>
+<br/>
+ {{ product.category }}
+<br/>
+Eco Score: {{ product.eko_score}}
+<br/>
+<br/>
+Packaging Elements:
+<ul>
+
+{% for pkg in packaging %}
+
+<li>{{ pkg.element }} - <small>{{ pkg.material }} - recyclable: {% if pkg.is_recyclable %} Yes {% else %} No {% endif %}- recycled: {% if pkg.is_recycled %} Yes {% else %} No {% endif %} </small>
+</li>
+
+{% endfor %}
+
+</ul>
+
+<br/>
+<hr><!--
+{% if user.is_authenticated %}
+<small><a href="{#% url 'updateProduct' product.pk %}">Edit Product</a> </small> <br/>
+{% endif %}
+{% if user.is_authenticated and user.is_superuser%}
+<small><a href="{#% url 'deleteProduct' product.pk %}">Delete Product</a> </small><br/>
+{% endif %}
+
+<small>Last author: {{product.author}} </small><br/>
+
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Back<a/>
+-->
+
+{% else %}
+
+<h1> Sorry, the item with barcode '{{ pk }}' is not registered in our database </h1>
+
+{% endif %}
+{% endblock %}
