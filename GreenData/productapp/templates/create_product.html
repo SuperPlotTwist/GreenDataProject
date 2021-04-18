@@ -15,55 +15,56 @@ Packaging Elements :
 <br/>
 <hr>
 <table class="table form-table table-bordered table-sm">
-                            <thead class="text-center">
-                            <tr>
-                                <th>Element</th>
-                                <th>Material</th>
-                                <th>Mass</th>
-                                <th>Recyclable ?</th>
-                                <th>Recycled ?</th>
-								
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for pkg in packaging_formset %}
-                                <tr class="item">
-                                    <td>
-                                        {{ pkg.element }}
-                                    </td>
-                                    <td>
-                                        {{ pkg.material }}
-                                    </td>
-                                    <td>
-                                        {{ pkg.mass }}
-                                    </td>
-                                    <td>
-                                        {{ pkg.is_recyclable }}
-                                    </td>
-                                    <td>
-                                        {{ pkg.is_recycled }}
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger btn-sm remove-form-row"
-                                                id="{{ packaging_formset.prefix }}">
-                                          
-                                            Delete element
-                                        </button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="9"
-                                    style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
-                                    <button type="button" class="btn btn-sm btn-success add-form-row"
-                                            id="{{ packaging_formset.prefix }}">
-                                       Add element
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+			<thead class="text-center">
+			<tr>
+				<th>Element</th>
+				<th>Material</th>
+				<th>Mass</th>
+				<th>Recyclable ?</th>
+				<th>Recycled ?</th>
+				
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for pkg in packaging_formset %}
+				<tr class="item">
+					<td>
+						{{ pkg.element }}
+					</td>
+					<td>
+						{{ pkg.material }}
+					</td>
+					<td>
+						{{ pkg.mass }}
+					</td>
+					<td>
+						{{ pkg.is_recyclable }}
+					</td>
+					<td>
+						{{ pkg.is_recycled }}
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm remove-form-row"
+								id="{{ packaging_formset.prefix }}">
+							
+							Delete element
+						</button>
+					</td>
+					{{ pkg.errors }}
+				</tr>
+			{% endfor %}
+			<tr>
+				<td colspan="9"
+					style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
+					<button type="button" class="btn btn-sm btn-success add-form-row"
+							id="{{ packaging_formset.prefix }}">
+						Add element
+					</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 	
 	{{ packaging_formset.management_form }}
 

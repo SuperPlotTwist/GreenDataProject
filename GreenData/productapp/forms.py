@@ -22,9 +22,17 @@ class ProductForm(forms.ModelForm):
 
 
 class PackagingInfoForm(forms.ModelForm):
-
-	material = forms.ChoiceField(choices=MATERIALS)
 	
+	element = forms.CharField(widget=forms.TextInput(attrs={'class':'formset-field'}))
+	
+	material = forms.ChoiceField(choices=MATERIALS, widget=forms.Select(attrs={'class':'formset-field'}))
+	
+	mass = forms.IntegerField(widget=forms.NumberInput(attrs={'class':'formset-field'}))
+
+	is_recyclable = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class':'formset-field'}))
+
+	is_recycled = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class':'formset-field'}))
+
 	class Meta:
 		model = PackagingInfo
 
@@ -35,3 +43,12 @@ class PackagingInfoForm(forms.ModelForm):
 			'is_recyclable',
 			'is_recycled'
 		]
+
+		# mandatory for JS parsing and dynamic packaging number
+		widget = {
+			'element': forms.TextInput(attrs={'class':'formset-field'}),
+			'material': forms.TextInput(attrs={'class':'formset-field'}),
+			'mass': forms.TextInput(attrs={'class':'formset-field'}),
+			'is_recyclable': forms.TextInput(attrs={'class':'formset-field'}),
+			'is_recycled': forms.TextInput(attrs={'class':'formset-field'}),
+		}

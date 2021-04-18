@@ -14,7 +14,7 @@ function addForm(btn, prefix) {
     if (formCount < 1000) {
         // Clone a form (without event handlers) from the first form
         var row = $(".item:last").clone(false).get(0);
-
+		console.log(row);
         // Insert it after the last form
         $(row).removeAttr('id').hide().insertAfter(".item:last").slideDown(300);
 
