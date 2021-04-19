@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,7 +22,9 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00cd82;">
-  <a class="navbar-brand" href="{% url 'home' %}">Green Data</a>
+  <img class='logo' src="{% static 'media/logo.png' %}" width="60" height="60" alt="">
+  <a class="navbar-brand" href="{% url 'home' %}"> Green Data</a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -33,20 +36,7 @@
         <a class="nav-link" href="{% url 'home' %}">All Products <span class="sr-only">(current)</span></a>
       </li>
       
-      <!-- Category Menu code ! -->
-      {% if cat_menu %}
-      <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Product Categories
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-          {% for item in cat_menu %}
-          <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{ item }}</a>
-          {% endfor %}
-        </div>
-      </li>
-      {% endif %}
       <li class="nav-item ">
         <a class="nav-link" href="aboutus">About us</a>
       </li>
@@ -90,6 +80,64 @@
 	{% block extra_script %}
 	{% endblock extra_script %}
 	
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">About the project...</h5>
+  
+          <p>
+            This project is open source, it is available on GitHub !
+          </p>
+        </div>
+        <!--Grid column-->
+  
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Some links...</h5>
+  
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="https://github.com/ThePlotTeam/GreenDataProject" class="text-dark">GitHub</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+  
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: #00cd82;">
+      © 2021 Made by 
+      <a class="text-dark" href="https://www.epita.fr/">EPITA</a>
+      Students during Exchange Semester at 
+      <a class="text-dark" href="https://www.rtu.lv/">RTU</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
 
   </body>
 </html>

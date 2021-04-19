@@ -78,6 +78,7 @@ def AboutUsView(request):
 	ctxt = {}
 	return render(request, 'about_us.html', ctxt)
 
+'''
 def CategoryView(request, cats, **kwargs):
 	ctxt = {}
 
@@ -88,4 +89,4 @@ def CategoryView(request, cats, **kwargs):
 	ctxt["cat_products"] = cat_products
 	ctxt["cats"] = cats.title().replace('-', ' ')
 
-	return render(request, 'categories.html', ctxt)
+	return render(request, 'categories.html', ctxt)'''
