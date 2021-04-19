@@ -4,6 +4,7 @@ from .models import Product, Category
 from .forms import AddForm
 from django.urls import reverse_lazy
 
+
 # Create your views here.
 """def home(request):
 	return render(request, 'home.html', {})"""
@@ -72,6 +73,10 @@ class AddCategoryView(CreateView):
 		context = super(AddCategoryView, self).get_context_data(*args, **kwargs)
 		context["cat_menu"] = cat_menu
 		return context
+
+def AboutUsView(request):
+	ctxt = {}
+	return render(request, 'about_us.html', ctxt)
 
 def CategoryView(request, cats, **kwargs):
 	ctxt = {}
