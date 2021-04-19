@@ -25,22 +25,6 @@ class ProductForm(forms.ModelForm):
 			self.base_fields.pop('barcode')
 		super(ProductForm, self).__init__(*args, **kwargs)
 
-class ProductEditForm(forms.ModelForm):
-
-	category = forms.TypedChoiceField(choices=CATEGORIES)
-	quantity_unit = forms.TypedChoiceField(choices=UNITS)
-
-	class Meta:
-		model = Product
-
-		fields = [
-			'name',
-			'brand',
-			'category',
-			'origin',
-			'quantity',
-			'quantity_unit'
-		]
 
 class PackagingInfoForm(forms.ModelForm):
 	

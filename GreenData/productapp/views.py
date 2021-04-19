@@ -6,33 +6,41 @@ from django.utils import timezone
 import pytz
 
 from .models import Product, PackagingInfo
-from .forms import ProductForm, PackagingInfoForm, ProductEditForm
+from .forms import ProductForm, PackagingInfoForm
 
 # Create your views here.
 
 
 def create_product_view(request, *args, **kwargs):
-	ctxt = {}
-
+	
+	# Packaging form manager class
+	# max_num is the max number of packagings
 	PackagingFormSet = modelformset_factory(model=PackagingInfo, form=PackagingInfoForm, max_num=10)
 
+	# set of product attributes
 	product_form = ProductForm(request.POST or None, edit_mode=False)
 
+	# formset object
 	packaging_formset = PackagingFormSet(
 		request.POST or None,
 		queryset=PackagingInfo.objects.none(),
 		prefix='packaging_info'
 		)
 
+	# If request updates data
 	if request.method == 'POST':
 		if product_form.is_valid() and packaging_formset.is_valid():
 			try:
 				with transaction.atomic():
+
+					# Save product data in DB
 					product = product_form.save(commit=False)
 					product.last_modified = timezone.now()
-					#product.author = request.user.name
+					#product.author = request.user.username
 					product.save()
+
 					for pkg in packaging_formset:
+						# Save each packaging
 						packaging = pkg.save(commit=False)
 						if packaging.element != '':
 							packaging.product = product
@@ -46,6 +54,7 @@ def create_product_view(request, *args, **kwargs):
 		else:
 			print(product_form.errors, packaging_formset.errors)
 	
+	ctxt = {}
 	ctxt['product_form'] = product_form
 	ctxt['packaging_formset'] = packaging_formset
 	ctxt['user'] = request.user
@@ -81,31 +90,41 @@ def product_detail_view(request, pk='', **kwargs):
 
 
 
-PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=0, max_num=10)
 
 
 def edit_product_view(request, pk=''):
 	"""
 		Display a view where the user can modify data of a product
 	"""
+	
+	# formset manager class
+	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=0, max_num=10, can_delete=True)
+
+	# Get instance of the product
 	prod_instance = get_object_or_404(Product, pk=pk)
-	print(prod_instance	)
+
+	# Instantiate the product formset
 	prod_form = ProductForm(request.POST or None, request.FILES or None, instance=prod_instance, edit_mode=True)
+
+	# Instanciate the packaging formset
 	pack_formset = PackagingInfoFormSet(request.POST or None, request.FILES or None, instance=prod_instance)
+	
 	if prod_form.is_valid() and pack_formset.is_valid():
-		product = form.save()
-		product.authors = request.user.name
+		product = prod_form.save()
+		#product.authors = request.user.name
 		product.save()
 		for pack_form in pack_formset:
 			pkg = pack_form.save()
-			pkg.product = product
-			pkg.save()
+			if pack_form in pack_formset.deleted_forms:
+				pkg.delete()
+			else:
+				pkg.product = product
+				pkg.save()
 		return redirect('product_detail', pk=product.pk)
 	ctxt = {}
 	ctxt['instance'] = prod_instance
 	ctxt['form'] = prod_form
 	ctxt['formset'] = pack_formset
-	print("PRINTTTTTTTTT", pack_formset.as_p())
 	return render(request, 'edit_product.html', ctxt)
 
 
