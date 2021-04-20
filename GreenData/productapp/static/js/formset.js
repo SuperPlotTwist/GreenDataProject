@@ -11,7 +11,8 @@ function updateElementIndex(el, prefix, ndx) {
 
 function addForm(btn, prefix) {
     var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-    if (formCount < 1000) {
+    var maxFormCount = parseInt($('#id_' + prefix + '-MAX_NUM_FORMS').val());
+    if (formCount < maxFormCount) {
         // Clone a form (without event handlers) from the first form
         var row = $(".item:last").clone(false).get(0);
 		console.log(row);
@@ -39,6 +40,10 @@ function addForm(btn, prefix) {
         $("#id_" + prefix + "-TOTAL_FORMS").val(formCount + 1);
 
     } // End if
+	else
+	{
+		alert("Cannot add more than 10 packaging elements");
+	}
 
     return false;
 }

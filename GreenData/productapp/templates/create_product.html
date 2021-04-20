@@ -51,7 +51,7 @@ Packaging Elements :
 							Delete element
 						</button>
 					</td>
-					{{ pkg.errors }}
+					{{ pkg.errors }} <!--If any error occur when filling the packagings-->
 				</tr>
 			{% endfor %}
 			<tr>
@@ -84,6 +84,6 @@ Packaging Elements :
 <!--Scripts for dynamic formset-->
 <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/formset.js' %}"></script>
-{% endblock%}
+{% endblock %}
 
 

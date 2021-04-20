@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 #from . import views
-from .views import HomeView, ProductDetailView, AddProductView, UpdateProductView, DeleteProductView, AddCategoryView, CategoryView
+from .views import HomeView, ProductDetailView, AddProductView, UpdateProductView, DeleteProductView, AddCategoryView, CategoryView, AboutUsView
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
@@ -29,6 +29,7 @@ urlpatterns = [
     path('addProduct/', AddProductView.as_view(), name="addProduct"),
     path('product/edit/<int:pk>', UpdateProductView.as_view(), name="updateProduct"),
     path('product/<int:pk>/delete', DeleteProductView.as_view(), name="deleteProduct"),
+    path('aboutus/', AboutUsView, name='aboutus'),
 	path('category/<str:cats>/', CategoryView, name='category'),
     path("favicon.ico", RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")))
 ]

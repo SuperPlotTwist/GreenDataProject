@@ -16,7 +16,9 @@ Unknown product
 <h1> {{product.name }} </h1>
 <h2> {{ product.brand }} </h2>
 <br/>
- {{ product.category }}
+ {{ product.category|title }}
+<br/>
+Origin country: {{ product.origin }}
 <br/>
 Eco Score: {{ product.eko_score}}
 <br/>
