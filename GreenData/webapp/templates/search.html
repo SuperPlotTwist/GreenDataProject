@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+    {% if searched %}
+        <h1>You searched for {{ searched }}</h1>
+        <br></br>
+        {% for p in prod %}
+            <a href="{% url 'productapp:product_detail' p.pk %}">{{ p.name }}</a>
+            <br/>
+        {% endfor %}
+
+    {% else %}
+        <h1>You forgot to search for a product...</h1>
+        </br>
+        <h3>Here are the last added products:</h3>
+        <br></br>
+        {% for p in prod %}
+            <a href="{% url 'productapp:product_detail' p.pk %}">{{ p.name }}</a>
+            <br/>
+        {% endfor %}
+    {% endif %}
+
+
+    </center>
+{% endblock %}
