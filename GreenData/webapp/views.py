@@ -10,6 +10,16 @@ from productapp.views import *
 """def home(request):
 	return render(request, 'home.html', {})"""
 
+def searchView(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        prod = Product.objects.filter(name__contains=searched)
+        return render(request, 'search.html', {'searched':searched, 'prod':prod})
+    else:
+        last_ten = Messages.objects.filter(since=since).order_by('-id')[:10]
+        prod = reversed(last_ten)
+        return render(request, 'search.html', {'prod':prod})
+
 
 class HomeView(ListView):
     model = Product
