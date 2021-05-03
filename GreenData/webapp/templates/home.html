@@ -7,14 +7,9 @@
 
 <ul>
 {% for product in object_list %}
-	<li><a href="{% url 'productDetail' product.pk %}"> {{ product.product_name }}</a> <small>
-		{% if user.is_authenticated %}
-		- <a href="{% url 'updateProduct' product.pk %}">Edit Product</a>
-		{% endif %}
-		{% if user.is_authenticated and user.is_superuser%}
-		- <a href="{% url 'deleteProduct' product.pk %}">Delete Product</a> 
-		{% endif %}
-	</small><br/>
+	{% comment %} TODO {% endcomment %}
+	<li> {{product.name}} </li>
+	<li><a href="{% if product.barcode %}{% url 'productapp:product_detail' product.pk %}{% endif %}"> {{ product.name }}</a> 
 	{{ product.category }} <br/>
 	{{ product.packaging }} <br/>
 	{{ product.packaging_mass }} </li>
