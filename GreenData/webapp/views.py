@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from productapp.models import Product
 from productapp.urls import *
 from productapp.views import *
+from productapp.presets import CATEGORIES
 
 # Create your views here.
 """def home(request):
@@ -26,3 +27,8 @@ class HomeView(ListView):
 def AboutUsView(request):
     ctxt = {}
     return render(request, 'about_us.html', ctxt)
+
+
+def list_products_view(request, cat=None):
+	
+    return render(request, 'list_products.html', {'categories':CATEGORIES})

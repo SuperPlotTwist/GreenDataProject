@@ -1,0 +1,4 @@
+{% comment %} Product element in a list {% endcomment %}
+<li>
+<a href="{% if product.barcode %}{% url 'productapp:product_detail' product.pk %}{% endif %}"> {{ product.name }}</a> - {{ product.brand }} - {{ product.category }}
+</li>
