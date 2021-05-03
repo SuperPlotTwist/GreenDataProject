@@ -7,12 +7,8 @@
 
 <ul>
 {% for product in object_list %}
-	{% comment %} TODO {% endcomment %}
-	<li> {{product.name}} </li>
-	<li><a href="{% if product.barcode %}{% url 'productapp:product_detail' product.pk %}{% endif %}"> {{ product.name }}</a> 
-	{{ product.category }} <br/>
-	{{ product.packaging }} <br/>
-	{{ product.packaging_mass }} </li>
+
+{% include 'product_li.html' %}
 
 {% endfor %}
 </ul>

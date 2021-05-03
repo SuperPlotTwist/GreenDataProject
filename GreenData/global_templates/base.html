@@ -1,145 +1,177 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <title> 
-      {% block title %} 
-        Green Data 
-      {% endblock %} 
-    </title>
+	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+		crossorigin="anonymous"></script>
 
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00cd82;">
-  <img class='logo' src="{% static 'media/logo.png' %}" width="60" height="60" alt="">
-  <a class="navbar-brand" href="{% url 'home' %}"> Green Data</a>
+	<style media="screen" type="text/css">
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+		#container {
+			min-height: 100%;
+			position: relative
+		}
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+		#header {}
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'home' %}">All Products <span class="sr-only">(current)</span></a>
-      </li>
-      
+		#body {
+			padding-bottom: 14.5em
+		}
 
-      <li class="nav-item ">
-        <a class="nav-link" href="aboutus">About us</a>
-      </li>
-
-      {% if user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'productapp:add_product' %}">Add a product</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'edit_profile' %}">Edit profile</a>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link active" href="{% url 'register' %}">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="{% url 'login' %}">Login</a>
-      </li>
-      {% endif %}
-     
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
-    <br/>
-    <div class="container">
-      {% block content %}
-
-      {% endblock%}
-    </div>
+		#footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 14.5em;
+		}
+	</style>
 
 
+	<title>
+		{% block title %}
+		Green Data
+		{% endblock %}
+	</title>
 
-	{% block extra_script %}
-	{% endblock extra_script %}
-	
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+</head>
 
-  <!-- Footer -->
-  <footer class="bg-light text-center text-lg-start">
-    <!-- Grid container -->
-    <div class="container p-4">
-      <!--Grid row-->
-      <div class="row">
-        <!--Grid column-->
-        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-          <h5 class="text-uppercase">About the project...</h5>
-  
-          <p>
-            This project is open source, it is available on GitHub !
-          </p>
-        </div>
-        <!--Grid column-->
-  
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Some links...</h5>
-  
-          <ul class="list-unstyled mb-0">
-            <li>
-              <a href="https://github.com/ThePlotTeam/GreenDataProject" class="text-dark">GitHub</a>
-            </li>
-            <li>
-              <a href="#!" class="text-dark">Link 2</a>
-            </li>
-            <li>
-              <a href="#!" class="text-dark">Link 3</a>
-            </li>
-            <li>
-              <a href="#!" class="text-dark">Link 4</a>
-            </li>
-          </ul>
-        </div>
-        <!--Grid column-->
-  
-      </div>
-      <!--Grid row-->
-    </div>
-    <!-- Grid container -->
-  
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: #00cd82;">
-      © 2021 Made by 
-      <a class="text-dark" href="https://www.epita.fr/">EPITA</a>
-      Students during Exchange Semester at 
-      <a class="text-dark" href="https://www.rtu.lv/">RTU</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
+<body>
+
+	<div id="container">
+
+		<nav class="navbar navbar-expand-lg navbar-dark" id="header" style="background-color: #00cd82;">
+			<img class='logo' src="{% static 'media/logo.png' %}" width="60" height="60" alt="">
+			<a class="navbar-brand" href="{% url 'home' %}"> Green Data</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">All Products <span
+								class="sr-only">(current)</span></a>
+					</li>
 
 
-  </body>
+					<li class="nav-item ">
+						<a class="nav-link" href="aboutus">About us</a>
+					</li>
+
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'productapp:add_product' %}">Add a product</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'edit_profile' %}">Edit profile</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url 'register' %}">Register</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url 'login' %}">Login</a>
+					</li>
+					{% endif %}
+
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+
+		<br />
+		<div class="container" id="body">
+			{% block content %}
+
+			{% endblock%}
+		</div>
+
+
+		<div id="footer" class="bg-light text-center text-lg-start footer">
+			<!-- Grid container -->
+			<div class="container p-4">
+				<!--Grid row-->
+				<div class="row">
+					<!--Grid column-->
+					<div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+						<h5 class="text-uppercase">About the project...</h5>
+
+						<p>
+							This project is open source, it is available on GitHub !
+						</p>
+					</div>
+					<!--Grid column-->
+
+					<!--Grid column-->
+					<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+						<h5 class="text-uppercase">Some links...</h5>
+
+						<ul class="list-unstyled mb-0">
+							<li>
+								<a href="https://github.com/ThePlotTeam/GreenDataProject" class="text-dark">GitHub</a>
+							</li>
+							<li>
+								<a href="#!" class="text-dark">Link 2</a>
+							</li>
+							<li>
+								<a href="#!" class="text-dark">Link 3</a>
+							</li>
+							<li>
+								<a href="#!" class="text-dark">Link 4</a>
+							</li>
+						</ul>
+					</div>
+					<!--Grid column-->
+
+				</div>
+				<!--Grid row-->
+			</div>
+			<!-- Grid container -->
+
+			<!-- Copyright -->
+			<div class="text-center p-3" style="background-color: #00cd82;">
+				© 2021 Made by
+				<a class="text-dark" href="https://www.epita.fr/">EPITA</a>
+				Students during Exchange Semester at
+				<a class="text-dark" href="https://www.rtu.lv/">RTU</a>
+			</div>
+			<!-- Copyright -->
+
+		</div>
+
+	</div>
+</body>
+
+{% block extra_script %}
+{% endblock extra_script %}
+
 </html>
