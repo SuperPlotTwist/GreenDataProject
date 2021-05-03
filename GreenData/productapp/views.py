@@ -46,18 +46,20 @@ def create_product_view(request, *args, **kwargs):
 							packaging.product = product
 							packaging.save()
 					
-					return redirect('product_detail', pk=product.pk)
+					return redirect('productapp:product_detail', pk=product.pk)
 			except:
-				raise "Form ERROR"
+				raise Exception("Form ERROR")
+			
+			# reset form
 			product_form = ProductForm()
 			packaging_formset = PackagingFormSet(queryset=PackagingInfo.objects.none(), prefix='packaging_info')
-		else:
-			print(product_form.errors, packaging_formset.errors)
 	
+	# build the context for template
 	ctxt = {}
 	ctxt['product_form'] = product_form
 	ctxt['packaging_formset'] = packaging_formset
 	ctxt['user'] = request.user
+	
 	return render(request, 'create_product.html', ctxt)
 
 
@@ -112,6 +114,7 @@ def edit_product_view(request, pk=''):
 	if prod_form.is_valid() and pack_formset.is_valid():
 		product = prod_form.save()
 		#product.authors = request.user.name
+		product.last_modified = timezone.now()
 		product.save()
 		for pack_form in pack_formset:
 			pkg = pack_form.save()
@@ -120,7 +123,7 @@ def edit_product_view(request, pk=''):
 			else:
 				pkg.product = product
 				pkg.save()
-		return redirect('product_detail', pk=product.pk)
+		return redirect('productapp:product_detail', pk=product.pk)
 	ctxt = {}
 	ctxt['instance'] = prod_instance
 	ctxt['form'] = prod_form
