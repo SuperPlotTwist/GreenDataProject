@@ -3,10 +3,10 @@
 {% block content %}
     <center>
     {% if searched %}
-        <h1>You searched for {{ searched }}</h1>
+        <h1>You searched for "{{ searched }}"</h1>
         <br></br>
-        {% for p in prod %}
-            <a href="{% url 'productapp:product_detail' p.pk %}">{{ p.name }}</a>
+        {% for product in prod %}
+            {% include 'product_li.html' %}
             <br/>
         {% endfor %}
 
@@ -15,8 +15,8 @@
         </br>
         <h3>Here are the last added products:</h3>
         <br></br>
-        {% for p in prod %}
-            <a href="{% url 'productapp:product_detail' p.pk %}">{{ p.name }}</a>
+        {% for product in prod %}
+            {% include 'product_li.html' %}
             <br/>
         {% endfor %}
     {% endif %}
