@@ -5,7 +5,6 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
 
-from productapp.presets import CATEGORIES
 from productapp.presets import ctxt_cat
 
 class PasswordsChangeView(PasswordChangeView):
