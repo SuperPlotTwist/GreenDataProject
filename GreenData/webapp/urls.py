@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import HomeView, AboutUsView, list_products_view, searchView
+from .views import HomeView, AboutUsView, list_products_view, searchView, allProductsView
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
@@ -23,9 +23,10 @@ from django.conf import settings
 
 urlpatterns = [
     #path('', views.home, name="home")
-    path('', HomeView.as_view(), name="home"),
+    path('allproducts/', allProductsView.as_view(), name="allproducts"),
     path('aboutus/', AboutUsView, name='aboutus'),
 	path('category/<str:cat>', list_products_view, name='category'),
+    path('', HomeView, name='home'),
 	path('category/', list_products_view, name='category'),
     path("favicon.ico", RedirectView.as_view(url=staticfiles_storage.url("favicon.ico"))),
     path('search', searchView, name='search-results'),

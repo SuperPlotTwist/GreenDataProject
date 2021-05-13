@@ -17,14 +17,19 @@ def searchView(request):
         prod = Product.objects.filter(name__contains=searched)
         return render(request, 'search.html', {'searched':searched, 'prod':prod})
     else:
-        last_ten = Messages.objects.filter(since=since).order_by('-id')[:10]
+        last_ten = Product.objects.all().order_by('-last_modified')[:10]
         prod = reversed(last_ten)
         return render(request, 'search.html', {'prod':prod})
 
+def HomeView(request):
+    last_ten = Product.objects.all().order_by('-last_modified')[:10]
+    prod = reversed(last_ten)
+    return render(request, 'home.html', {'prod':prod})
 
-class HomeView(ListView):
+
+class allProductsView(ListView):
     model = Product
-    template_name = 'home.html'
+    template_name = 'all_products.html'
     ordering = ['-last_modified']
 
     # def get_context_data(self, *args, **kwargs):
