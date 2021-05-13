@@ -53,9 +53,6 @@ def create_product_view(request, *args, **kwargs):
 			except:
 				raise Exception("Form ERROR")
 			
-			# reset form
-			product_form = ProductForm()
-			packaging_formset = PackagingFormSet(queryset=PackagingInfo.objects.none(), prefix='packaging_info')
 	
 	# build the context for template
 	ctxt = {}
