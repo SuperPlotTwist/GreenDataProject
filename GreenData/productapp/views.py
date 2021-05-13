@@ -99,7 +99,7 @@ def edit_product_view(request, pk=''):
 	"""
 	
 	# formset manager class
-	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True, validate_min=1)
+	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True, min_num=1, validate_min=True)
 
 	# Get instance of the product
 	prod_instance = get_object_or_404(Product, pk=pk)
