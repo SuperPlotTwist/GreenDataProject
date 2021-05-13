@@ -8,7 +8,8 @@ import pytz
 from .models import Product, PackagingInfo
 from .forms import ProductForm, PackagingInfoForm
 
-# Create your views here.
+from productapp.presets import CATEGORIES
+from productapp.presets import ctxt_cat
 
 
 def create_product_view(request, *args, **kwargs):
@@ -60,7 +61,7 @@ def create_product_view(request, *args, **kwargs):
 	ctxt['packaging_formset'] = packaging_formset
 	ctxt['user'] = request.user
 	
-	return render(request, 'create_product.html', ctxt)
+	return render(request, 'create_product.html', ctxt_cat(ctxt))
 
 
 
@@ -72,14 +73,14 @@ def product_detail_view(request, pk='', **kwargs):
 
 	if pk == '': #Invalid pk
 		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt)
+		return render(request, 'product_detail2.html', ctxt_cat(ctxt))
 
 	matching_products = Product.objects.filter(pk=pk)
 
 	# if the barcode value doesn't find a match or if there are several matches
 	if len(matching_products) != 1:
 		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt)
+		return render(request, 'product_detail2.html', ctxt_car(ctxt))
 	
 	product = matching_products[0]
 	packagings = product.packaginginfo_set.all()
@@ -88,7 +89,7 @@ def product_detail_view(request, pk='', **kwargs):
 	ctxt['packaging'] = packagings
 	ctxt['user'] = request.user
 
-	return render(request, 'product_detail2.html', ctxt)
+	return render(request, 'product_detail2.html', ctxt_cat(ctxt))
 
 
 
@@ -128,7 +129,7 @@ def edit_product_view(request, pk=''):
 	ctxt['instance'] = prod_instance
 	ctxt['form'] = prod_form
 	ctxt['formset'] = pack_formset
-	return render(request, 'edit_product.html', ctxt)
+	return render(request, 'edit_product.html', ctxt_cat(ctxt))
 
 
 
@@ -142,7 +143,7 @@ def edit_product_view(request, pk=''):
 	# handle the case of non existent pk
 	if len(matching_products) != 1:
 		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt)
+		return render(request, 'product_detail2.html', ctxt_cat(ctxt))
 	
 
 
@@ -183,5 +184,5 @@ def edit_product_view(request, pk=''):
 	ctxt['product_form'] = product_form
 	ctxt['packaging_formset'] = packaging_formset
 	ctxt['user'] = request.user
-	return render(request, 'create_product.html', ctxt)
+	return render(request, 'create_product.html', ctxt_cat(ctxt))
 	

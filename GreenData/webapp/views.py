@@ -6,25 +6,22 @@ from productapp.models import Product
 from productapp.urls import *
 from productapp.views import *
 from productapp.presets import CATEGORIES
-
-# Create your views here.
-"""def home(request):
-	return render(request, 'home.html', {})"""
+from productapp.presets import ctxt_cat
 
 def searchView(request):
     if request.method == "POST":
         searched = request.POST['searched']
         prod = Product.objects.filter(name__contains=searched)
-        return render(request, 'search.html', {'searched':searched, 'prod':prod})
+        return render(request, 'search.html', ctxt_cat({'searched':searched, 'prod':prod}))
     else:
-        last_ten = Product.objects.all().order_by('-last_modified')[:10]
+        last_ten = Product.objects.all().order_by('last_modified')[:10]
         prod = reversed(last_ten)
-        return render(request, 'search.html', {'prod':prod})
+        return render(request, 'search.html', ctxt_cat({'prod':prod}))
 
 def HomeView(request):
-    last_ten = Product.objects.all().order_by('-last_modified')[:10]
+    last_ten = Product.objects.all().order_by('last_modified')[:10]
     prod = reversed(last_ten)
-    return render(request, 'home.html', {'prod':prod})
+    return render(request, 'home.html', ctxt_cat({'prod':prod}))
 
 
 class allProductsView(ListView):
@@ -32,16 +29,14 @@ class allProductsView(ListView):
     template_name = 'all_products.html'
     ordering = ['-last_modified']
 
-    # def get_context_data(self, *args, **kwargs):
-    #     # cat_menu = Category.objects.all()
-    #     # context = super(HomeView, self).get_context_data(*args, **kwargs)
-    #     # context["cat_menu"] = cat_menu
-    #     return context
+    def get_context_data(self, *args, **kwargs):
+        context = super(allProductsView, self).get_context_data(*args, **kwargs)
+        return ctxt_cat(context)
 
 
 def AboutUsView(request):
-    ctxt = {}
-    return render(request, 'about_us.html', ctxt)
+    context = {}
+    return render(request, 'about_us.html', ctxt_cat(context))
 
 
 def list_products_view(request, cat=None):
@@ -49,7 +44,7 @@ def list_products_view(request, cat=None):
     Query the database and display all products in category cat
     """
     ctxt = {'good_cat': True}
-    
+    ctxt = ctxt_cat(ctxt)
     # if the category given exists, query all products in this category
     if any(cat in c for c in CATEGORIES):
         items = Product.objects.filter(category=cat)
