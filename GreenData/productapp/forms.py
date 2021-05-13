@@ -1,6 +1,6 @@
 from .models import Product, PackagingInfo
 from django import forms
-from .presets import CATEGORIES, UNITS, MATERIALS
+from .presets import CATEGORIES, MATERIAL_AS_CHOICES, UNITS
 
 
 class ProductForm(forms.ModelForm):
@@ -23,7 +23,7 @@ class ProductForm(forms.ModelForm):
 
 class PackagingInfoForm(forms.ModelForm):
 
-    material = forms.ChoiceField(choices=MATERIALS, widget=forms.Select())
+    material = forms.ChoiceField(choices=MATERIAL_AS_CHOICES, widget=forms.Select())
 
     class Meta:
         model = PackagingInfo
