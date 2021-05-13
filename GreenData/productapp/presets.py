@@ -19,10 +19,13 @@ UNITS = [
 
 
 # Possible materials
-MATERIALS = [
-	('PLASTIC', 'Plastic'),
-	('GLASS', 'Glass'),
-	('CARDBOARD', 'Cardboard'),
-	('ALUMINIUM', 'Aluminium'),
-	('PAPER', 'Paper')
-]
+# Model : MATERIALS[id] = (name, ecoscore)
+MATERIALS = {
+	"PLASTIC": ('Plastic', 0.3),
+	"GLASS": ('Glass', 1.0),
+	"CARDBOARD": ('Cardboard', 0.7),
+	"ALUMINUM": ('Aluminum', 0.8),
+	"PAPER": ('Paper', 0.9)
+}
+
+MATERIAL_AS_CHOICES = [(k, MATERIALS[k][0]) for k in MATERIALS]

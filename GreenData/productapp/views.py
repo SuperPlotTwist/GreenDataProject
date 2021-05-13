@@ -7,6 +7,7 @@ import pytz
 
 from .models import Product, PackagingInfo
 from .forms import ProductForm, PackagingInfoForm
+from .ecoscore import getEcoScore
 
 # Create your views here.
 
@@ -45,7 +46,8 @@ def create_product_view(request, *args, **kwargs):
 						if packaging.element != '':
 							packaging.product = product
 							packaging.save()
-					
+					product.eko_score = getEcoScore(product)
+					product.save()
 					return redirect('productapp:product_detail', pk=product.pk)
 			except:
 				raise Exception("Form ERROR")
@@ -100,7 +102,7 @@ def edit_product_view(request, pk=''):
 	"""
 	
 	# formset manager class
-	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=0, max_num=10, can_delete=True)
+	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True)
 
 	# Get instance of the product
 	prod_instance = get_object_or_404(Product, pk=pk)
@@ -123,6 +125,8 @@ def edit_product_view(request, pk=''):
 			else:
 				pkg.product = product
 				pkg.save()
+		product.eko_score = getEcoScore(product)
+		product.save()
 		return redirect('productapp:product_detail', pk=product.pk)
 	ctxt = {}
 	ctxt['instance'] = prod_instance
@@ -131,57 +135,3 @@ def edit_product_view(request, pk=''):
 	return render(request, 'edit_product.html', ctxt)
 
 
-
-
-
-	##################
-	ctxt = {'good_pk': True, 'pk': pk}
-
-	matching_products = Product.objects.filter(pk=pk)
-
-	# handle the case of non existent pk
-	if len(matching_products) != 1:
-		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt)
-	
-
-
-	ctxt = {}
-
-	PackagingFormSet = modelformset_factory(model=PackagingInfo, form=PackagingInfoForm, max_num=10)
-
-	product_form = ProductForm(request.POST or None, edit_mode=True)
-
-	packaging_formset = PackagingFormSet(
-		request.POST or None,
-		queryset=PackagingInfo.objects.none(),
-		prefix='packaging_info'
-		)
-
-	if request.method == 'POST':
-		if product_form.is_valid() and packaging_formset.is_valid():
-			try:
-				with transaction.atomic():
-					product = product_form.save(commit=False)
-					product.last_modified = timezone.now()
-					#product.author = request.user.name
-					product.save()
-					for pkg in packaging_formset:
-						packaging = pkg.save(commit=False)
-						if packaging.element != '':
-							packaging.product = product
-							packaging.save()
-					
-					return redirect('product_detail', pk=product.pk)
-			except:
-				raise "Form ERROR"
-			product_form = ProductForm()
-			packaging_formset = PackagingFormSet(queryset=PackagingInfo.objects.none(), prefix='packaging_info')
-		else:
-			print(product_form.errors, packaging_formset.errors)
-	
-	ctxt['product_form'] = product_form
-	ctxt['packaging_formset'] = packaging_formset
-	ctxt['user'] = request.user
-	return render(request, 'create_product.html', ctxt)
-	
