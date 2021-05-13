@@ -4,7 +4,8 @@
 CATEGORIES = [
 	('FOOD', 'Food'),
 	('HOUSEHOLD', 'Household'),
-	('OTHER', 'Other')
+	('OTHER', 'Other'),
+	('COSMETIC', 'Cosmetics')
 ]
 
 def ctxt_cat(ctxt):
