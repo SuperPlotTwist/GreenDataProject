@@ -9,7 +9,6 @@ from .models import Product, PackagingInfo
 from .forms import ProductForm, PackagingInfoForm
 from .ecoscore import getEcoScore
 
-from productapp.presets import CATEGORIES
 from productapp.presets import ctxt_cat
 
 
@@ -88,7 +87,7 @@ def product_detail_view(request, pk='', **kwargs):
 	ctxt['packaging'] = packagings
 	ctxt['user'] = request.user
 
-	return render(request, 'product_detail2.html', ctxt_cat(ctxt))
+	return render(request, 'product_detail.html', ctxt_cat(ctxt))
 
 
 
@@ -100,13 +99,13 @@ def edit_product_view(request, pk=''):
 	"""
 	
 	# formset manager class
-	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True)
+	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True, validate_min=1)
 
 	# Get instance of the product
 	prod_instance = get_object_or_404(Product, pk=pk)
 
 	# Instantiate the product formset
-	prod_form = ProductForm(request.POST or None, request.FILES or None, instance=prod_instance, edit_mode=True)
+	prod_form = ProductForm(request.POST or None, instance=prod_instance, edit_mode=True)
 
 	# Instanciate the packaging formset
 	pack_formset = PackagingInfoFormSet(request.POST or None, request.FILES or None, instance=prod_instance)
@@ -117,6 +116,8 @@ def edit_product_view(request, pk=''):
 		product.last_modified = timezone.now()
 		product.save()
 		for pack_form in pack_formset:
+			if not pack_form.is_valid():
+				continue
 			pkg = pack_form.save()
 			if pack_form in pack_formset.deleted_forms:
 				pkg.delete()
