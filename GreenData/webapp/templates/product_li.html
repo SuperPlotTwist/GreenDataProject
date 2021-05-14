@@ -1,0 +1,12 @@
+{% comment %} Product element in a list {% endcomment %}
+
+
+<div class="card">
+  <div class="card-body">
+    <a href="{% if product.barcode %}{% url 'productapp:product_detail' product.pk %}{% endif %}"> {{ product.name }}</a> - {{ product.brand }} - 
+<span class="badge badge-light"><a href="{% url 'category' product.category %}"> {{ product.category|title }} </a></span>
+  </div>
+</div>
+
+<br>
+

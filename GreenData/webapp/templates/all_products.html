@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<h1>Lately added products</h1>
+<h1>All products !</h1>
 <br></br>
 
 <ul>
-{% for product in prod %}
+{% for product in object_list %}
 
 {% include 'product_li.html' %}
 
