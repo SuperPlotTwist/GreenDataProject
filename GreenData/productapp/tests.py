@@ -24,6 +24,9 @@ class ProductTestCase(TestCase):
         user_b.is_active = False
         self.user_b = user_b
 
+        # Setting test product 
+        prod = Product(barcode=226, name="test", brand="test", category="FOOD")
+
     def test_user_count(self):
         # verifying that the users have been created
         user_count = User.objects.all().count()
@@ -33,7 +36,7 @@ class ProductTestCase(TestCase):
         # verifying that a user not logged in can't add go on the edit profile page
         response = self.client.post("/members/edit_profile/", {"title":"this is a valid test"})
         print(response.status_code)
-        self.assertTrue(response.status_code!=200)"""
+        self.assertTrue(response.status_code==403)"""
 
     def test_valid_edit_profile(self):
         """
