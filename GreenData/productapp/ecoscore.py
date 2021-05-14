@@ -30,19 +30,16 @@ def getEcoScore(p:Product):
 		prd_mass_gram *= 1000
 	elif p.quantity_unit in ['cL']:
 		prd_mass_gram *= 10
-	print("prd_mass_gram", prd_mass_gram)
 	packagings = p.packaginginfo_set.all()
 
+	if packagings.count() == 0:
+		raise Exception("No packaging saved")
+
 	sum_pck_masses = sum([pck.mass for pck in packagings])
-	print("sum_pck_masses", sum_pck_masses)
 	pck_weight_score_sum = sum([(pck.mass / sum_pck_masses) * _packageScore(pck) for pck in packagings])
 
-	print(pck_weight_score_sum)
-
 	score = pck_weight_score_sum
-	print("score", score)
 	# if there is more mass of packaging than products, then proportional malus
 	score *= min(1, prd_mass_gram/sum_pck_masses)
-	print("score", score)
 
 	return int(100*score)

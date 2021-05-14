@@ -33,6 +33,7 @@ def create_product_view(request, *args, **kwargs):
 
 	# If request updates data
 	if request.method == 'POST':
+
 		if product_form.is_valid() and packaging_formset.is_valid():
 			try:
 				with transaction.atomic():
