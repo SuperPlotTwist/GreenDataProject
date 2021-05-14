@@ -43,7 +43,7 @@ class PackagingInfo(models.Model):
 
 	#Displayed in (Creation)
 	element = models.CharField(max_length=64)
-	material = models.CharField(max_length=255) #TODO: make it choice
+	material = models.CharField(max_length=255)
 	mass = models.IntegerField(null=True, blank=False)
 	is_recyclable = models.BooleanField(default=False)
 	is_recycled = models.BooleanField(default=False)

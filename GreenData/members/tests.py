@@ -43,11 +43,11 @@ class UserTestCase(TestCase):
         user_count = User.objects.all().count()
         self.assertEqual(user_count, 1)
 
-    """def test_invalid_request(self):
+    def test_invalid_request(self):
         # verifying that a user not logged in can't add go on the edit profile page
-        response = self.client.post("/members/edit_profile/", {"title":"this is a valid test"})
+        response = self.client.get("/members/edit_profile/",)
         print(response.status_code)
-        self.assertTrue(response.status_code==403)"""
+        self.assertTrue(response.status_code==403)
 
     def test_valid_edit_profile(self):
         """
