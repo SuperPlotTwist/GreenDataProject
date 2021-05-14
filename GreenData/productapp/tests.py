@@ -29,8 +29,18 @@ class ProductTestCase(TestCase):
         user_count = User.objects.all().count()
         self.assertEqual(user_count, 2)
 
-    def test_invalid_request(self):
+    """def test_invalid_request(self):
         # verifying that a user not logged in can't add go on the edit profile page
-        response = self.client.post("/members/edit_profile", {"title":"this is a valid test"})
+        response = self.client.post("/members/edit_profile/", {"title":"this is a valid test"})
         print(response.status_code)
-        self.assertTrue(response.status_code!=200)
+        self.assertTrue(response.status_code!=200)"""
+
+    def test_valid_edit_profile(self):
+        """
+        Verifying if when a user is logged in, it can access the
+        edit profile page
+        """
+        self.client.login(username=self.user_a.username, password=self.user_a_pw)
+        response = self.client.post("/members/edit_profile/", {"title":"this a valid test"})
+        print(response.status_code)
+        self.assertTrue(response.status_code==200)
