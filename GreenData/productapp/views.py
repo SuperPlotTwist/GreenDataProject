@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import transaction, IntegrityError
 from django.forms import inlineformset_factory, modelformset_factory
@@ -67,18 +68,17 @@ def product_detail_view(request, pk='', **kwargs):
 	"""
 		Display a detailed view of a product, showing all specifications
 	"""
-	ctxt = {'good_pk': True, 'pk': pk}
+	ctxt = {'pk': pk}
 
-	if pk == '': #Invalid pk
-		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt_cat(ctxt))
+	# Empty (thus invalid) pk
+	if pk == '': 
+		return render(request, 'wrong_product_pk.html', ctxt_cat(ctxt), status=404)
 
 	matching_products = Product.objects.filter(pk=pk)
 
 	# if the barcode value doesn't find a match or if there are several matches
 	if len(matching_products) != 1:
-		ctxt['good_pk'] = False
-		return render(request, 'product_detail2.html', ctxt_cat(ctxt))
+		return render(request, 'wrong_product_pk.html', ctxt_cat(ctxt), status=404)
 	
 	product = matching_products[0]
 	packagings = product.packaginginfo_set.all()
@@ -97,7 +97,16 @@ def edit_product_view(request, pk=''):
 	"""
 		Display a view where the user can modify data of a product
 	"""
-	
+	ctxt = ctxt_cat({'pk':pk})
+
+	# Check that product exist
+	qry = Product.objects.filter(pk=pk)
+	if len(qry) != 1:
+		return render(request, 'wrong_product_pk.html', ctxt, status=404)
+
+	if not request.user.is_authenticated:
+		return render(request, 'anonymous_prod_edit.html', ctxt, status=403)
+
 	# formset manager class
 	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True, min_num=1, validate_min=True)
 
