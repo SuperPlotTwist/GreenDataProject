@@ -18,7 +18,7 @@ Unknown product
 <br/>
  Catergory: <span class="badge badge-light"><a href="{% url 'category' product.category %}"> {{ product.category|title }} </a></span>
 <br/>
-Origin country: {{ product.origin }}
+Origin country: {{ product.origin.name }}
 <br/>
 
 <div data-toggle="tooltip" data-placement="right" title="The Eko Score is calculated based on the data of the packaging. It is out of 100. The closer to 100, the better it is for the environment.">
