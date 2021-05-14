@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
 
 from productapp.presets import ctxt_cat
+from utils.errors import ERROR_MSG
+from utils.views import client_error_view
 
 
 class PasswordsChangeView(PasswordChangeView):
@@ -40,7 +42,8 @@ class UserEditView(generic.UpdateView):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return render(request, 'registration/error_edit_anonymous.html', ctxt_cat({}), status=403)
+            # handle anoymous usr edition
+            return client_error_view(request, ERROR_MSG['anon_profile_edit'], 403)
         else:
             return super(UserEditView, self).get(request, *args, **kwargs)
 

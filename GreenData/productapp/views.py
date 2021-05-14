@@ -11,6 +11,8 @@ from .forms import ProductForm, PackagingInfoForm
 from .ecoscore import getEcoScore
 
 from productapp.presets import ctxt_cat
+from utils.errors import ERROR_MSG
+from utils.views import client_error_view
 
 
 def create_product_view(request, *args, **kwargs):
@@ -72,13 +74,13 @@ def product_detail_view(request, pk='', **kwargs):
 
 	# Empty (thus invalid) pk
 	if pk == '': 
-		return render(request, 'wrong_product_pk.html', ctxt_cat(ctxt), status=404)
+		return client_error_view(request, ERROR_MSG['wrong_prod_pk'].format(pk), 404)
 
 	matching_products = Product.objects.filter(pk=pk)
 
 	# if the barcode value doesn't find a match or if there are several matches
 	if len(matching_products) != 1:
-		return render(request, 'wrong_product_pk.html', ctxt_cat(ctxt), status=404)
+		return client_error_view(request, ERROR_MSG['wrong_prod_pk'].format(pk), 404)
 	
 	product = matching_products[0]
 	packagings = product.packaginginfo_set.all()
@@ -102,10 +104,10 @@ def edit_product_view(request, pk=''):
 	# Check that product exist
 	qry = Product.objects.filter(pk=pk)
 	if len(qry) != 1:
-		return render(request, 'wrong_product_pk.html', ctxt, status=404)
+		return client_error_view(request, ERROR_MSG['wrong_prod_pk'].format(pk), 404)
 
 	if not request.user.is_authenticated:
-		return render(request, 'anonymous_prod_edit.html', ctxt, status=403)
+		return client_error_view(request, ERROR_MSG['anon_product_edit'], 403)
 
 	# formset manager class
 	PackagingInfoFormSet = inlineformset_factory(Product, PackagingInfo, form=PackagingInfoForm, extra=1, max_num=10, can_delete=True, min_num=1, validate_min=True)

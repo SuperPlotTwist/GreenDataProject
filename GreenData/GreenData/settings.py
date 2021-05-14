@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'webapp',
     'members',
     'django_countries',
-	'productapp'
+	'productapp',
+	'utils'
 ]
 
 MIDDLEWARE = [
