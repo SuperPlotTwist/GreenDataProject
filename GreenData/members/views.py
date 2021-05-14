@@ -7,30 +7,42 @@ from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
 
 from productapp.presets import ctxt_cat
 
+
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
+
     def get_context_data(self, *args, **kwargs):
-        context = super(PasswordsChangeView, self).get_context_data(*args, **kwargs)
+        context = super(PasswordsChangeView,
+                        self).get_context_data(*args, **kwargs)
         return ctxt_cat(context)
 
 
 def PasswordSuccess(request):
     return render(request, 'registration/password_success.html')
 
+
 class UserRegisterView(generic.CreateView):
     form_class = SignUpForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
+
     def get_context_data(self, *args, **kwargs):
-        context = super(UserRegisterView, self).get_context_data(*args, **kwargs)
+        context = super(UserRegisterView,
+                        self).get_context_data(*args, **kwargs)
         return ctxt_cat(context)
-    
+
 
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
     template_name = "registration/edit_profile.html"
     success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return render(request, 'registration/error_edit_anonymous.html', ctxt_cat({}), status=403)
+        else:
+            return super(UserEditView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(UserEditView, self).get_context_data(*args, **kwargs)
