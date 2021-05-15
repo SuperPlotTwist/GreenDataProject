@@ -5,6 +5,10 @@
 {% block content %}
 
 <body>
+
+<h1>Edit product '{{ instance.name }}' </h1>
+<br/>
+
 <form method='POST'>
 
 {% csrf_token %}
@@ -88,6 +92,8 @@
 </form>
 
 </body>
+<br/>
+<br/>
 
 
 {% endblock content %}
