@@ -8,20 +8,28 @@ from productapp.views import *
 from productapp.presets import CATEGORIES
 from productapp.presets import ctxt_cat
 
+
 def searchView(request):
     if request.method == "POST":
         searched = request.POST['searched']
         prod = Product.objects.filter(name__contains=searched)
-        return render(request, 'search.html', ctxt_cat({'searched':searched, 'prod':prod}))
+        return render(request, 'search.html',
+                      ctxt_cat({
+                          'searched': searched,
+                          'prod': prod
+                      }))
     else:
         last_ten = Product.objects.all().order_by('last_modified')[:10]
         prod = reversed(last_ten)
-        return render(request, 'search.html', ctxt_cat({'prod':prod}))
+        return render(request, 'search.html', ctxt_cat({'prod': prod}))
+
 
 def HomeView(request):
+    ctxt = {}
     last_ten = Product.objects.all().order_by('last_modified')[:10]
-    prod = reversed(last_ten)
-    return render(request, 'home.html', ctxt_cat({'prod':prod}))
+    ctxt["products"] = reversed(last_ten)
+    ctxt['products_empty'] = len(last_ten) == 0
+    return render(request, 'home.html', ctxt_cat(ctxt))
 
 
 class allProductsView(ListView):
@@ -30,7 +38,8 @@ class allProductsView(ListView):
     ordering = ['-last_modified']
 
     def get_context_data(self, *args, **kwargs):
-        context = super(allProductsView, self).get_context_data(*args, **kwargs)
+        context = super(allProductsView,
+                        self).get_context_data(*args, **kwargs)
         return ctxt_cat(context)
 
 
