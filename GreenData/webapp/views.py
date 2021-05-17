@@ -26,8 +26,8 @@ def searchView(request):
 
 def HomeView(request):
     ctxt = {}
-    last_ten = Product.objects.all().order_by('last_modified')[:10]
-    ctxt["products"] = reversed(last_ten)
+    last_ten = Product.objects.all().order_by('-last_modified')[:10]
+    ctxt["products"] = last_ten
     ctxt['products_empty'] = len(last_ten) == 0
     return render(request, 'home.html', ctxt_cat(ctxt))
 
